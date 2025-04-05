@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Vue Task Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+
+    <div id="app" class="container">
+        <h2>Enhanced Vue Task Manager</h2>
+
+        <!-- Task Form -->
+        <form @submit.prevent="addTask">
+            <input type="text" v-model="newTask" placeholder="Enter a task" required>
+            <button type="submit">Add Task</button>
+        </form>
+
+        <!-- Filter Dropdown -->
+        <label>Filter: 
+            <select v-model="filter">
+                <option value="all">All</option>
+                <option value="pending">Pending</option>
+                <option value="completed">Completed</option>
+            </select>
+        </label>
+
+        <!-- Task List -->
+        <ul>
+            <li v-for="(task, index) in filteredTasks" :key="index">
+                <input type="checkbox" v-model="task.completed">
+                <span :class="{ completed: task.completed }">{{ task.text }}</span>
+                <button @click="removeTask(index)" class="remove-btn">Remove</button>
+            </li>
+        </ul>
+
+        <!-- Task Counter -->
+        <h3>Total Tasks: {{ taskCount }}</h3>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
